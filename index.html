@@ -118,7 +118,7 @@
   </header>
 
   <section id="start" class="card">
-    <h2>20 preguntas, sin apuro</h2>
+    <h2>20 preguntas</h2>
     <p>
       Cada partida sortea cinco preguntas de cada tema y mezcla las opciones.
       Cada acierto vale un punto. La velocidad no suma.
@@ -629,7 +629,7 @@ function finish() {
   const score = answers.filter(answer => answer.correct).length;
   const completed = new Date();
 
-  const title = add(result, "h1", "Informe · Python Fiesta");
+  const title = add(result, "h1", "Informe · Repaso de Python");
   title.tabIndex = -1;
 
   add(result, "h2", `${score} / 20 aciertos · ${score * 5}%`);
@@ -637,7 +637,7 @@ function finish() {
   add(result, "p", `Inicio: ${started.toLocaleString("es-AR")}`);
   add(result, "p", `Finalización: ${completed.toLocaleString("es-AR")}`);
   add(result, "p",
-    "Un punto por respuesta correcta, sin premio por velocidad.");
+    "Un punto por respuesta correcta.");
 
   add(result, "p",
     "Seleccioná «Guardar PDF / Imprimir» y elegí «Guardar como PDF» " +
