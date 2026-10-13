@@ -2,409 +2,713 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Python Fiesta</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#21113f;color:white;font-family:system-ui,sans-serif}
-main{max-width:950px;margin:auto;padding:24px}
-h1{font-size:clamp(32px,6vw,52px);margin:15px 0}
-.card{background:#352257;padding:24px;border-radius:20px;margin:20px 0}
-label{display:block;margin:15px 0 6px}
-input{width:100%;font:inherit;padding:12px;border:0;border-radius:8px}
-button{font:inherit;font-weight:bold;padding:15px;border:0;border-radius:10px;
-cursor:pointer;background:#ffdb67;color:#21113f}
-button:disabled{opacity:.5;cursor:default}
-.options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.option{color:white;min-height:95px;text-align:left;white-space:pre-wrap}
-.option:nth-child(1){background:#b82643}
-.option:nth-child(2){background:#2357b5}
-.option:nth-child(3){background:#816000}
-.option:nth-child(4){background:#187446}
-.selected{outline:4px solid white;outline-offset:2px}
-pre{background:#170c2c;padding:18px;border-radius:10px;
-white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
-.muted{color:#ded2ee}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
-.hidden{display:none!important}
-.item{border-top:1px solid #8c78a7;padding:14px 0;break-inside:avoid}
-progress{width:100%;accent-color:#ffdb67}
-@media(max-width:600px){
- main{padding:14px}.card{padding:17px}
- .options{grid-template-columns:1fr}.option{min-height:65px}
-}
-@media print{
- body{background:white;color:black}
- main{max-width:none;padding:0}
- .card{background:white;padding:0}
- .muted{color:#333}
- .actions,header{display:none}
- pre{background:#eee;color:black;font-size:12px}
- .item{font-size:12px}
- h1{font-size:26px}
-}
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #21113f;
+    color: white;
+    font-family: system-ui, sans-serif;
+  }
+  main { max-width: 950px; margin: auto; padding: 24px; }
+  h1 { font-size: clamp(32px, 6vw, 52px); margin: 15px 0; }
+  h2 { line-height: 1.4; }
+  .card {
+    background: #352257;
+    padding: 24px;
+    border-radius: 20px;
+    margin: 20px 0;
+  }
+  label { display: block; margin: 15px 0 6px; }
+  input {
+    width: 100%;
+    font: inherit;
+    padding: 12px;
+    border: 0;
+    border-radius: 8px;
+  }
+  button {
+    font: inherit;
+    font-weight: bold;
+    padding: 15px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #ffdb67;
+    color: #21113f;
+  }
+  button:disabled { opacity: .5; cursor: default; }
+  button:focus-visible, input:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 4px;
+  }
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .option {
+    color: white;
+    min-height: 95px;
+    text-align: left;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .option:nth-child(1) { background: #b82643; }
+  .option:nth-child(2) { background: #2357b5; }
+  .option:nth-child(3) { background: #816000; }
+  .option:nth-child(4) { background: #187446; }
+  .selected { outline: 4px solid white; outline-offset: 2px; }
+  pre {
+    background: #170c2c;
+    padding: 18px;
+    border-radius: 10px;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.6;
+    tab-size: 4;
+  }
+  .muted { color: #ded2ee; }
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .hidden { display: none !important; }
+  .item {
+    border-top: 1px solid #8c78a7;
+    padding: 14px 0;
+    break-inside: avoid;
+  }
+  progress { width: 100%; accent-color: #ffdb67; }
+  @media (max-width: 600px) {
+    main { padding: 14px; }
+    .card { padding: 17px; }
+    .options { grid-template-columns: 1fr; }
+    .option { min-height: 65px; }
+    pre { font-size: 13px; }
+  }
+  @media print {
+    body { background: white; color: black; }
+    main { max-width: none; padding: 0; }
+    .card { background: white; padding: 0; }
+    .muted { color: #333; }
+    .actions, header { display: none; }
+    pre {
+      background: #eee;
+      color: black;
+      font-size: 11px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .item { font-size: 12px; }
+    h1 { font-size: 26px; }
+  }
 </style>
 </head>
 <body>
 <main>
-<header>
-<p>üêç Gu√≠a 1 ¬∑ Ejercicios 1 al 40</p>
-<h1>Python Fiesta</h1>
-<p class="muted">Pens√°, eleg√≠ y que el c√≥digo te acompa√±e.</p>
-</header>
+  <header>
+    <p>?? GuÌa 1 ∑ Ejercicios 1 al 40</p>
+    <h1>Python Fiesta</h1>
+    <p class="muted">Pens·, elegÌ y que el cÛdigo te acompaÒe.</p>
+  </header>
 
-<section id="start" class="card">
-<h2>20 preguntas, sin apuro</h2>
-<p>Cada partida sortea cinco preguntas de cada tema y mezcla las opciones.
-Cada acierto vale un punto. La velocidad no suma.</p>
-<p>Usamos Python 3. Intent√° resolver mentalmente los fragmentos,
-sin ejecutarlos. Las soluciones aparecen al terminar.</p>
-<label for="name">Nombre y apellido</label>
-<input id="name" maxlength="100" autocomplete="name">
-<label for="course">Curso / divisi√≥n</label>
-<input id="course" maxlength="80">
-<p class="muted">No cierres ni recargues la p√°gina: se pierde la partida.
-Al terminar, guard√° el informe como PDF y entregalo en Classroom.</p>
-<button id="begin">¬°A jugar!</button>
-<p id="error" role="alert"></p>
-</section>
+  <section id="start" class="card">
+    <h2>20 preguntas, sin apuro</h2>
+    <p>
+      Cada partida sortea cinco preguntas de cada tema y mezcla las opciones.
+      Cada acierto vale un punto. La velocidad no suma.
+    </p>
+    <p>
+      Usamos Python 3. Intent· resolver mentalmente los fragmentos,
+      sin ejecutarlos. Prest· atenciÛn a los espacios al comienzo
+      de las lÌneas: la indentaciÛn forma parte del cÛdigo.
+    </p>
+    <p>Las respuestas correctas y sus explicaciones aparecen al terminar.</p>
 
-<section id="game" class="card hidden">
-<p id="position"></p>
-<progress id="progress" max="20" value="0"></progress>
-<h2 id="question"></h2>
-<pre id="code"></pre>
-<div id="options" class="options"></div>
-<p id="notice" aria-live="polite"></p>
-<button id="next" disabled>Confirmar y seguir ‚Üí</button>
-</section>
+    <label for="name">Nombre y apellido</label>
+    <input id="name" maxlength="100" autocomplete="name">
 
-<section id="result" class="card hidden"></section>
+    <p class="muted">
+      No cierres ni recargues la p·gina: se pierde la partida.
+      Al finalizar, guard· el informe como PDF y entregalo en Classroom.
+    </p>
+
+    <button id="begin" type="button">°A jugar!</button>
+    <p id="error" role="alert"></p>
+  </section>
+
+  <section id="game" class="card hidden">
+    <p id="position"></p>
+    <progress id="progress" max="20" value="0"
+      aria-label="Preguntas respondidas"></progress>
+    <h2 id="question" tabindex="-1"></h2>
+    <pre id="code"></pre>
+    <div id="options" class="options"></div>
+    <p id="notice" aria-live="polite"></p>
+    <button id="next" type="button" disabled>Confirmar y seguir ?</button>
+  </section>
+
+  <section id="result" class="card hidden"></section>
 </main>
 
 <script>
 "use strict";
 
 // Cada pregunta contiene:
-// tema, enunciado, c√≥digo, opciones, explicaci√≥n.
-// La primera opci√≥n del banco es correcta; se mezcla al jugar.
+// tema, enunciado, cÛdigo, opciones y explicaciÛn.
+// La primera opciÛn del banco es correcta.
+// Las opciones se mezclan antes de mostrarse.
 const bank = [
-[0,"¬øQu√© muestra este c√≥digo?","print(5 * 3)",
-["15","53","5 * 3","Una serpiente haciendo abdominales"],
-"* multiplica los n√∫meros."],
+  [
+    0,
+    "øQuÈ muestra este cÛdigo?",
+    "print(5 * 3)",
+    ["15", "53", "5 * 3", "Una serpiente haciendo abdominales"],
+    "* multiplica los n˙meros."
+  ],
+  [
+    0,
+    "øQuÈ muestra este cÛdigo?",
+    'print("5 * 3 =15")',
+    ["5 * 3 =15", "15", "8", "Error: las comillas tienen frÌo"],
+    "Las comillas indican texto literal; no se calcula la expresiÛn."
+  ],
+  [
+    0,
+    "øCu·ntas lÌneas muestra?",
+    'print("Estamos en otoÒo")\nprint("Hace frÌo")\nprint(2024)',
+    ["3", "1", "2", "2024, una por cada aÒo"],
+    "Cada print termina con un salto de lÌnea por defecto."
+  ],
+  [
+    0,
+    "Si el usuario escribe Ana, øquÈ muestra el ˙ltimo print?",
+    'nombre = input("Nombre: ")\nprint("Usted es", nombre)',
+    [
+      "Usted es Ana",
+      "Usted es nombre",
+      "Ana Usted es",
+      "Usted es una tostadora"
+    ],
+    "print muestra el texto y el valor de nombre separados por un espacio."
+  ],
+  [
+    0,
+    "El usuario escribe 12. øQuÈ tipo de dato devuelve input?",
+    'edad = input("Edad: ")',
+    [
+      "Texto (str)",
+      "Entero (int)",
+      "Decimal (float)",
+      "Dato con crisis de identidad"
+    ],
+    "input devuelve texto, aunque se escriban dÌgitos."
+  ],
+  [
+    0,
+    "Se escribe 5 y luego 3. øQuÈ imprime?",
+    'a = input("A: ")\nb = input("B: ")\nprint(a + b)',
+    ["53", "8", "15", "Python pide vacaciones"],
+    "+ concatena cuando ambos valores son textos."
+  ],
+  [
+    0,
+    "øQuÈ debe cambiar para sumar dos enteros en lugar de unir los textos?",
+    'a = input("A: ")\nb = input("B: ")\nprint(a + b)',
+    [
+      "Convertir ambos valores con int antes de sumarlos",
+      "Agregar m·s comillas",
+      "Multiplicar los textos por cero",
+      "Pedirle por favor al teclado"
+    ],
+    "int convierte un texto numÈrico v·lido en un entero."
+  ],
+  [
+    0,
+    "øQuÈ conversiÛn permite ingresar 2.5 kg con punto decimal?",
+    'kg = ___(input("Kg: "))',
+    ["float", "int", "print", "banana"],
+    "float convierte texto con punto decimal en un n˙mero decimal."
+  ],
 
-[0,"¬øQu√© muestra este c√≥digo?",'print("5 * 3 =15")',
-["5 * 3 =15","15","8","Error: las comillas tienen fr√≠o"],
-"Las comillas indican texto literal; no se calcula la expresi√≥n."],
+  [
+    1,
+    "øCu·l es el resultado?",
+    "a = 6\nb = 8\nc = 10\nprint((a + b + c) / 3)",
+    ["8.0", "24", "14.0", "Aprobado por simpatÌa"],
+    "Se suma 24 y se divide por 3."
+  ],
+  [
+    1,
+    "øQuÈ ocurre si faltan los parÈntesis al calcular este promedio?",
+    "promedio = 6 + 8 + 10 / 3",
+    [
+      "Se divide solo 10 entre 3 antes de sumar",
+      "Se divide toda la suma entre 3",
+      "Da exactamente 8",
+      "Python adivina lo que quisimos hacer"
+    ],
+    "La divisiÛn tiene prioridad sobre la suma."
+  ],
+  [
+    1,
+    "øQuÈ imprime Python 3?",
+    "print(7 / 2)",
+    ["3.5", "3", "14", "Dos mitades de una serpiente"],
+    "/ realiza divisiÛn y devuelve un resultado decimal."
+  ],
+  [
+    1,
+    "øQuÈ ocurre al ejecutar este cÛdigo?",
+    "for n in range(1, 4):\nprint(n)",
+    [
+      "Se produce un error de indentaciÛn",
+      "Imprime 1, 2 y 3",
+      "Imprime solo 3",
+      "Python acomoda los espacios con una escoba"
+    ],
+    "DespuÈs de for debe haber un bloque indentado. print(n) debe estar desplazado hacia la derecha."
+  ],
+  [
+    1,
+    "øQuÈ muestra este programa, en orden?",
+    'for n in range(1, 4):\n    print(n)\nprint("Fin")',
+    [
+      "1, 2, 3 y luego Fin una sola vez",
+      "1, Fin, 2, Fin, 3, Fin",
+      "Solo Fin",
+      "Fin aparece cuando se cansa"
+    ],
+    "El ˙ltimo print est· fuera del bucle porque vuelve al margen izquierdo."
+  ],
+  [
+    1,
+    "øQuÈ muestra este programa, en orden?",
+    'for n in range(1, 4):\n    print(n)\n    print("Fin")',
+    [
+      "1, Fin, 2, Fin, 3, Fin",
+      "1, 2, 3 y luego Fin una sola vez",
+      "Solo 1 y Fin",
+      "Tres finales y ning˙n comienzo"
+    ],
+    "Ambos print est·n indentados dentro del bucle y se ejecutan en cada vuelta."
+  ],
+  [
+    1,
+    "øQuÈ lÌneas pertenecen al cuerpo del bucle?",
+    'print("Listo")\nfor n in range(3):\n    print(n)\n    print("Seguimos")\nprint("Terminado")',
+    [
+      'print(n) y print("Seguimos")',
+      "Todos los print",
+      'Solo print("Terminado")',
+      "Las que tengan ganas de trabajar"
+    ],
+    "Las dos lÌneas indentadas debajo de for forman el cuerpo del bucle."
+  ],
+  [
+    1,
+    "Queremos pedir tres importes y mostrar el total una sola vez. øQuÈ lÌnea debe salir del bucle?",
+    'total = 0\nfor n in range(3):\n    importe = float(input("Importe: "))\n    total = total + importe\n    print(total)',
+    [
+      "print(total), llev·ndolo al margen izquierdo",
+      "La lÌnea que pide el importe",
+      "total = total + importe",
+      "Todas: el bucle necesita espacio personal"
+    ],
+    "El print debe ejecutarse despuÈs de terminar las tres vueltas. Dentro del bucle muestra los totales parciales."
+  ],
 
-[0,"¬øCu√°ntas l√≠neas muestra?",
-'print("Estamos en oto√±o")\nprint("Hace fr√≠o")\nprint(2024)',
-["3","1","2","2024, una por cada a√±o"],
-"Cada print termina con un salto de l√≠nea por defecto."],
+  [
+    2,
+    "øQuÈ range recorre del 1 al 20 inclusive?",
+    "for n in ___:\n    print(n)",
+    [
+      "range(1, 21)",
+      "range(1, 20)",
+      "range(0, 20)",
+      'range("hasta donde pinte")'
+    ],
+    "El lÌmite final de range no se incluye."
+  ],
+  [
+    2,
+    "øQuÈ secuencia muestra?",
+    "for n in range(10, 0, -1):\n    print(n)",
+    [
+      "10, 9, Ö, 1",
+      "10, 9, Ö, 0",
+      "0, 1, Ö, 10",
+      "La cuenta atr·s del microondas"
+    ],
+    "El paso es -1 y el lÌmite 0 est· excluido."
+  ],
+  [
+    2,
+    "øQuÈ secuencia muestra?",
+    "for n in range(5, 26, 3):\n    print(n)",
+    [
+      "5, 8, 11, 14, 17, 20, 23",
+      "5, 8, 11, 14, 17, 20, 23, 26",
+      "5, 6, 7, Ö, 25",
+      "5, 25: tomÛ un atajo"
+    ],
+    "Empieza en 5, avanza de a 3 y se detiene antes de 26."
+  ],
+  [
+    2,
+    "øCu·l es el ˙ltimo n˙mero mostrado?",
+    "for n in range(0, 51, 4):\n    print(n)",
+    ["48", "50", "52", "El 4 disfrazado de 50"],
+    "48 es el ˙ltimo m˙ltiplo de 4 menor que 51."
+  ],
+  [
+    2,
+    "øQuÈ imprime, en tres lÌneas?",
+    "for n in range(1, 4):\n    print(5 * n)",
+    [
+      "5, 10, 15",
+      "1, 2, 3",
+      "5, 5, 5",
+      "Cinco patos y un teclado"
+    ],
+    "n toma los valores 1, 2 y 3."
+  ],
+  [
+    2,
+    "øQuÈ hace input en este programa?",
+    'for n in range(1, 21):\n    print(n)\n    input("Enter para seguir")',
+    [
+      "Espera una entrada en cada vuelta",
+      "Espera solo al principio",
+      "Convierte n en texto",
+      "Le pide permiso al ratÛn"
+    ],
+    "input est· dentro del bucle y se ejecuta en cada iteraciÛn."
+  ],
+  [
+    2,
+    "øQuÈ range incluye la cuenta regresiva del 9 al 0?",
+    "for n in ___:\n    print(n)",
+    [
+      "range(9, -1, -1)",
+      "range(9, 0, -1)",
+      "range(0, 9)",
+      "range(9, 0, 1)"
+    ],
+    "Con paso -1, el lÌmite debe estar por debajo de 0 para incluirlo."
+  ],
+  [
+    2,
+    "øQuÈ expresiÛn recorre desde 1 hasta el n˙mero positivo ingresado, incluyÈndolo?",
+    'limite = int(input("Hasta quÈ n˙mero: "))\nfor n in ___:\n    print(n)',
+    [
+      "range(1, limite + 1)",
+      "range(1, limite)",
+      "range(limite, 1)",
+      'range(1, "por favor")'
+    ],
+    "Como el lÌmite final es exclusivo, se usa limite + 1."
+  ],
 
-[0,"Si el usuario escribe Ana, ¬øqu√© muestra el √∫ltimo print?",
-'nombre = input("Nombre: ")\nprint("Usted es", nombre)',
-["Usted es Ana","Usted es nombre","Ana Usted es","Usted es una tostadora"],
-"print muestra el texto y el valor de nombre separados por un espacio."],
-
-[0,"El usuario escribe 12. ¬øQu√© tipo de dato devuelve input?",
-'edad = input("Edad: ")',
-["Texto (str)","Entero (int)","Decimal (float)","Dato con crisis de identidad"],
-"input devuelve texto, aunque se escriban d√≠gitos."],
-
-[0,"Se escribe 5 y luego 3. ¬øQu√© imprime?",
-'a = input("A: ")\nb = input("B: ")\nprint(a + b)',
-["53","8","15","Python pide vacaciones"],
-"+ concatena cuando ambos valores son textos."],
-
-[0,"¬øQu√© permite sumar dos n√∫meros enteros ingresados con input?","",
-["Convertir ambos con int antes de sumarlos","Agregar m√°s comillas",
-"Multiplicar los textos por cero","Pedirle por favor al teclado"],
-"int convierte un texto num√©rico v√°lido en un entero."],
-
-[0,"¬øQu√© conversi√≥n permite ingresar 2.5 kg con punto decimal?",
-'kg = ___(input("Kg: "))',
-["float","int","print","banana"],
-"float convierte texto con punto decimal en un n√∫mero decimal."],
-
-[1,"¬øCu√°l es el resultado?",
-"a = 6\nb = 8\nc = 10\nprint((a + b + c) / 3)",
-["8.0","24","14.0","Aprobado por simpat√≠a"],
-"Se suma 24 y se divide por 3."],
-
-[1,"¬øQu√© ocurre si faltan los par√©ntesis al calcular este promedio?",
-"promedio = 6 + 8 + 10 / 3",
-["Se divide solo 10 entre 3 antes de sumar",
-"Se divide toda la suma entre 3","Da exactamente 8",
-"Python adivina lo que quisimos hacer"],
-"La divisi√≥n tiene prioridad sobre la suma."],
-
-[1,"¬øQu√© imprime Python 3?","print(7 / 2)",
-["3.5","3","14","Dos mitades de una serpiente"],
-"/ realiza divisi√≥n y devuelve un resultado decimal."],
-
-[1,"Con 1000 ARS = 1 USD, ¬øcu√°ntos USD son 5000 ARS?","",
-["5 USD","500 USD","5000000 USD","Un d√≥lar con bufanda"],
-"Para pasar de ARS a USD se divide por 1000."],
-
-[1,"Con 1000 ARS = 1 USD, ¬øcu√°ntos ARS son 7 USD?","",
-["7000 ARS","0.007 ARS","1007 ARS","Siete pesos musculosos"],
-"Para pasar de USD a ARS se multiplica por 1000."],
-
-[1,"¬øCu√°nto cuestan 2.5 kg a $1000 por kg?","",
-["$2500","$400","$1002.5","Un aplauso y dos papas"],
-"Importe = cantidad por precio unitario."],
-
-[1,"En esta pregunta el IVA es del 21%. Para $1000 de base, ¬øcu√°les son IVA y total?","",
-["IVA $210; total $1210","IVA $21; total $1021",
-"IVA $1210; total $210","IVA: invasi√≥n de verduras"],
-"El impuesto es 1000 * 0.21 y se suma a la base."],
-
-[1,"¬øCu√°nto cuestan 1 kg de carne, 2 kg de papas y 1 kg de manzana?",
-"# Carne: $8000/kg\n# Papas: $1000/kg\n# Manzana: $3000/kg",
-["$13000","$12000","$11000","Depende del humor de la manzana"],
-"8000 + 2 * 1000 + 3000 = 13000."],
-
-[2,"¬øQu√© range recorre del 1 al 20 inclusive?",
-"for n in ___:\n    print(n)",
-["range(1, 21)","range(1, 20)","range(0, 20)",
-'range("hasta donde pinte")'],
-"El l√≠mite final de range no se incluye."],
-
-[2,"¬øQu√© secuencia muestra?",
-"for n in range(10, 0, -1):\n    print(n)",
-["10, 9, ‚Ä¶, 1","10, 9, ‚Ä¶, 0","0, 1, ‚Ä¶, 10",
-"La cuenta atr√°s del microondas"],
-"El paso es -1 y el l√≠mite 0 est√° excluido."],
-
-[2,"¬øQu√© secuencia muestra?",
-"for n in range(5, 26, 3):\n    print(n)",
-["5, 8, 11, 14, 17, 20, 23",
-"5, 8, 11, 14, 17, 20, 23, 26",
-"5, 6, 7, ‚Ä¶, 25","5, 25: tom√≥ un atajo"],
-"Empieza en 5, avanza de a 3 y se detiene antes de 26."],
-
-[2,"¬øCu√°l es el √∫ltimo n√∫mero mostrado?",
-"for n in range(0, 51, 4):\n    print(n)",
-["48","50","52","El 4 disfrazado de 50"],
-"48 es el √∫ltimo m√∫ltiplo de 4 menor que 51."],
-
-[2,"¬øQu√© imprime, en tres l√≠neas?",
-"for n in range(1, 4):\n    print(5 * n)",
-["5, 10, 15","1, 2, 3","5, 5, 5","Cinco patos y un teclado"],
-"n toma los valores 1, 2 y 3."],
-
-[2,"¬øQu√© hace input en este programa?",
-'for n in range(1, 21):\n    print(n)\n    input("Enter para seguir")',
-["Espera una entrada en cada vuelta","Espera solo al principio",
-"Convierte n en texto","Le pide permiso al rat√≥n"],
-"input est√° dentro del bucle y se ejecuta en cada iteraci√≥n."],
-
-[2,"¬øQu√© range incluye la cuenta regresiva del 9 al 0?",
-"for n in ___:\n    print(n)",
-["range(9, -1, -1)","range(9, 0, -1)",
-"range(0, 9)","range(9, 0, 1)"],
-"Con paso -1, el l√≠mite debe estar por debajo de 0 para incluirlo."],
-
-[2,"¬øC√≥mo incluir el n√∫mero positivo elegido por el usuario?",
-'limite = int(input("Hasta qu√© n√∫mero: "))',
-["range(1, limite + 1)","range(1, limite)","range(limite, 1)",
-'range(1, "por favor")'],
-"Como el l√≠mite final es exclusivo, se usa limite + 1."],
-
-[3,"¬øCu√°ntos n√∫meros se imprimen en total?",
-"for vuelta in range(3):\n    for n in range(1, 6):\n        print(n)",
-["15","8","5","3: los dem√°s llegaron tarde"],
-"Son 3 vueltas externas con 5 impresiones cada una."],
-
-[3,"¬øCu√°ntos mensajes OK aparecen?",
-'for piso in range(1, 3):\n    for depto in range(1, 5):\n        print(piso, depto, "OK")',
-["8","6","4","Uno por cada vecino chismoso"],
-"2 pisos por 4 departamentos da 8 combinaciones."],
-
-[3,"Hay 3 edificios, 2 pisos por edificio y 4 departamentos por piso. ¬øCu√°ntos departamentos se recorren?","",
-["24","9","12","El ascensor se neg√≥ a contarlos"],
-"3 * 2 * 4 = 24."],
-
-[3,"¬øQu√© importe se muestra el d√≠a 5?",
-"for dia in range(1, 6):\n    print(dia, dia * 1000)",
-["5000","4000","6000","Mil abrazos contables"],
-"El importe es el n√∫mero de d√≠a multiplicado por 1000."],
-
-[3,"Se ingresan 10, 20 y 30. ¬øCu√°l es el total final?",
-'total = 0\nfor n in range(3):\n    importe = float(input("Importe: "))\n    total = total + importe\nprint(total)',
-["60.0","30.0","0","102030: todos bien pegaditos"],
-"El acumulador conserva y suma los importes de cada vuelta."],
-
-[3,"Se ingresan 10, 20 y 30. ¬øQu√© problema tiene este c√≥digo?",
-'for n in range(3):\n    total = 0\n    importe = float(input("Importe: "))\n    total = total + importe\nprint(total)',
-["Reinicia total cada vez y termina en 30.0",
-"Suma correctamente 60.0","Pide un solo importe",
-"La caja registradora tiene hipo"],
-"total debe inicializarse antes del bucle para conservar lo acumulado."],
-
-[3,"A 150 ollas por d√≠a, ¬øcu√°l es la producci√≥n acumulada al d√≠a 5?","",
-["750","150","155","Una monta√±a de tapas sin olla"],
-"El acumulado es 150 * 5."],
-
-[3,"Durante 6 d√≠as se informa una vez por d√≠a cada una de 3 m√°quinas. ¬øCu√°ntos registros se muestran?",
-'for dia in range(1, 7):\n    print("Sartenes", 200)\n    print("Coladores", 50)\n    print("Ollas", 120)',
-["18","6","3","370 m√°quinas en una conga"],
-"3 registros por d√≠a durante 6 d√≠as: 3 * 6 = 18."]
+  [
+    3,
+    "øCu·ntos n˙meros se imprimen en total?",
+    "for vuelta in range(3):\n    for n in range(1, 6):\n        print(n)",
+    ["15", "8", "5", "3: los dem·s llegaron tarde"],
+    "Son 3 vueltas externas con 5 impresiones cada una."
+  ],
+  [
+    3,
+    "øCu·ntos mensajes OK aparecen?",
+    'for piso in range(1, 3):\n    for depto in range(1, 5):\n        print(piso, depto, "OK")',
+    ["8", "6", "4", "Uno por cada vecino chismoso"],
+    "El print est· dentro de ambos bucles: se ejecuta para cada una de las 8 combinaciones."
+  ],
+  [
+    3,
+    "øCu·ntas veces aparece OK?",
+    'for piso in range(1, 3):\n    for depto in range(1, 5):\n        print(piso, depto)\n    print("OK")',
+    [
+      "2",
+      "8",
+      "1",
+      "Una por cada vecino que paga las expensas"
+    ],
+    'print("OK") est· dentro del bucle de pisos, pero fuera del de departamentos. Se ejecuta una vez por piso.'
+  ],
+  [
+    3,
+    "øQuÈ importe muestra el cÛdigo junto al dÌa 5?",
+    "for dia in range(1, 6):\n    print(dia, dia * 1000)",
+    ["5000", "4000", "6000", "Mil abrazos contables"],
+    "En esa vuelta dia vale 5 y el cÛdigo calcula 5 * 1000."
+  ],
+  [
+    3,
+    "Se ingresan 10, 20 y 30. øCu·l es el total final?",
+    'total = 0\nfor n in range(3):\n    importe = float(input("Importe: "))\n    total = total + importe\nprint(total)',
+    ["60.0", "30.0", "0", "102030: todos bien pegaditos"],
+    "El acumulador conserva y suma los importes de cada vuelta."
+  ],
+  [
+    3,
+    "Se ingresan 10, 20 y 30. øQuÈ problema tiene este cÛdigo?",
+    'for n in range(3):\n    total = 0\n    importe = float(input("Importe: "))\n    total = total + importe\nprint(total)',
+    [
+      "Reinicia total cada vez y termina en 30.0",
+      "Suma correctamente 60.0",
+      "Pide un solo importe",
+      "La caja registradora tiene hipo"
+    ],
+    "total debe inicializarse antes del bucle para conservar lo acumulado."
+  ],
+  [
+    3,
+    "Queremos acumular la producciÛn de cinco dÌas. øQuÈ lÌnea est· ubicada en el bloque equivocado?",
+    "for dia in range(1, 6):\n    total = 0\n    total = total + 150\nprint(total)",
+    [
+      "total = 0: debe estar antes del for, sin indentaciÛn",
+      "total = total + 150: debe salir del bucle",
+      "print(total): debe entrar al bucle",
+      "El for: est· ocupando mucho lugar"
+    ],
+    "Reiniciar total dentro del bucle borra lo acumulado. Inicializarlo antes permite obtener 750 al finalizar."
+  ],
+  [
+    3,
+    "øCu·ntas llamadas a print ejecuta este programa?",
+    'for dia in range(1, 7):\n    print("Sartenes", 200)\n    print("Coladores", 50)\n    print("Ollas", 120)',
+    ["18", "6", "3", "370 m·quinas en una conga"],
+    "Los tres print est·n dentro del bucle: se ejecutan 3 veces por vuelta, durante 6 vueltas."
+  ]
 ];
 
 const topics = [
-"Entrada y salida",
-"Operaciones",
-"Bucles y range",
-"Acumuladores y anidaci√≥n"
+  "Entrada y salida",
+  "Operaciones e indentaciÛn",
+  "Bucles y range",
+  "Acumuladores y anidaciÛn"
 ];
 
 const $ = id => document.getElementById(id);
-let questions = [], answers = [], index = 0, selected = null;
-let student = "", course = "", started;
+
+let questions = [];
+let answers = [];
+let index = 0;
+let selected = null;
+let student = "";
+let started;
 
 function shuffle(items) {
-  const a = [...items];
-  for (let i = a.length - 1; i > 0; i--) {
+  const shuffled = [...items];
+  for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return a;
+  return shuffled;
 }
 
 function add(parent, tag, text, className = "") {
-  const el = document.createElement(tag);
-  el.textContent = text;
-  el.className = className;
-  parent.append(el);
-  return el;
+  const element = document.createElement(tag);
+  element.textContent = text;
+  element.className = className;
+  parent.append(element);
+  return element;
 }
 
 $("begin").onclick = () => {
   student = $("name").value.trim();
-  course = $("course").value.trim();
-  if (!student || !course) {
-    $("error").textContent = "Complet√° tu nombre y curso.";
+
+  if (!student) {
+    $("error").textContent = "Complet· tu nombre para comenzar.";
+    $("name").focus();
     return;
   }
+
+  $("error").textContent = "";
   started = new Date();
-  questions = shuffle(topics.flatMap((_, topic) =>
-    shuffle(bank.map((q, id) => ({q, id}))
-      .filter(x => x.q[0] === topic)).slice(0, 5)
-  )).map(x => ({
-    ...x,
-    options: shuffle(x.q[3].map((text, i) => ({
-      text, correct: i === 0
-    })))
+
+  const chosen = topics.flatMap((_, topic) => {
+    const group = bank
+      .map((question, id) => ({ question, id }))
+      .filter(entry => entry.question[0] === topic);
+    return shuffle(group).slice(0, 5);
+  });
+
+  questions = shuffle(chosen).map(entry => ({
+    ...entry,
+    options: shuffle(
+      entry.question[3].map((text, optionIndex) => ({
+        text,
+        correct: optionIndex === 0
+      }))
+    )
   }));
+
   answers = [];
   index = 0;
+
   $("start").classList.add("hidden");
   $("game").classList.remove("hidden");
   render();
 };
 
 function render() {
-  const {q, options} = questions[index];
+  const { question, options } = questions[index];
   selected = null;
-  $("position").textContent =
-    `Pregunta ${index + 1} de 20 ¬∑ ${topics[q[0]]}`;
-  $("progress").value = index;
-  $("question").textContent = q[1];
-  $("code").textContent = q[2];
-  $("code").classList.toggle("hidden", !q[2]);
-  $("options").replaceChildren();
-  $("notice").textContent = "Eleg√≠ una opci√≥n y confirm√°.";
-  $("next").disabled = true;
-  $("next").textContent =
-    index === 19 ? "Finalizar y ver informe" : "Confirmar y seguir ‚Üí";
 
-  options.forEach((option, i) => {
+  $("position").textContent =
+    `Pregunta ${index + 1} de 20 ∑ ${topics[question[0]]}`;
+
+  $("progress").value = index;
+  $("question").textContent = question[1];
+  $("code").textContent = question[2];
+  $("code").classList.toggle("hidden", !question[2]);
+  $("options").replaceChildren();
+
+  $("notice").textContent = "ElegÌ una opciÛn y confirm·.";
+  $("next").disabled = true;
+  $("next").textContent = index === 19
+    ? "Finalizar y ver informe"
+    : "Confirmar y seguir ?";
+
+  options.forEach((option, optionIndex) => {
     const button = add(
-      $("options"), "button",
-      ["‚ñ≤", "‚óÜ", "‚óè", "‚ñ†"][i] + " " + option.text, "option"
+      $("options"),
+      "button",
+      `${["?", "?", "?", "¶"][optionIndex]} ${option.text}`,
+      "option"
     );
+
+    button.type = "button";
     button.setAttribute("aria-pressed", "false");
+
     button.onclick = () => {
-      selected = i;
-      [...$("options").children].forEach((b, j) => {
-        b.classList.toggle("selected", i === j);
-        b.setAttribute("aria-pressed", String(i === j));
+      selected = optionIndex;
+
+      [...$("options").children].forEach((otherButton, otherIndex) => {
+        const isSelected = optionIndex === otherIndex;
+        otherButton.classList.toggle("selected", isSelected);
+        otherButton.setAttribute("aria-pressed", String(isSelected));
       });
+
       $("next").disabled = false;
       $("notice").textContent =
-        "Pod√©s cambiar tu elecci√≥n antes de confirmar.";
+        "PodÈs cambiar tu elecciÛn antes de confirmar.";
     };
   });
+
+  $("question").focus();
 }
 
 $("next").onclick = () => {
   if (selected === null) return;
+
   answers.push(questions[index].options[selected]);
   index++;
-  if (index < 20) render();
-  else finish();
+
+  if (index < questions.length) {
+    render();
+  } else {
+    finish();
+  }
 };
 
 function finish() {
   $("game").classList.add("hidden");
+
   const result = $("result");
   result.classList.remove("hidden");
   result.replaceChildren();
 
-  const score = answers.filter(a => a.correct).length;
-  add(result, "h1", "Informe ¬∑ Python Fiesta");
-  add(result, "h2", `${score} / 20 aciertos ¬∑ ${score * 5}%`);
-  add(result, "p", `Estudiante: ${student} ¬∑ Curso: ${course}`);
+  const score = answers.filter(answer => answer.correct).length;
+  const completed = new Date();
+
+  const title = add(result, "h1", "Informe ∑ Python Fiesta");
+  title.tabIndex = -1;
+
+  add(result, "h2", `${score} / 20 aciertos ∑ ${score * 5}%`);
+  add(result, "p", `Estudiante: ${student}`);
   add(result, "p", `Inicio: ${started.toLocaleString("es-AR")}`);
-  add(result, "p",
-    `Finalizaci√≥n: ${new Date().toLocaleString("es-AR")}`);
+  add(result, "p", `FinalizaciÛn: ${completed.toLocaleString("es-AR")}`);
   add(result, "p",
     "Un punto por respuesta correcta, sin premio por velocidad.");
+
   add(result, "p",
-    "Guard√° el informe completo como PDF desde el bot√≥n de impresi√≥n. " +
-    "Despu√©s adjuntalo manualmente en Classroom. Tambi√©n pod√©s " +
-    "hacer una captura si tu docente la acepta.");
+    "Seleccion· ´Guardar PDF / Imprimirª y elegÌ ´Guardar como PDFª " +
+    "en el di·logo de impresiÛn. Revis· que se incluya todo el informe " +
+    "y adjuntalo manualmente en Classroom. TambiÈn podÈs hacer una " +
+    "captura si tu docente la acepta.");
+
   add(result, "p",
     "El nombre y las fechas son datos del navegador. " +
     "Este informe no certifica identidad ni impide modificaciones.",
     "muted");
 
   const actions = add(result, "div", "", "actions");
-  add(actions, "button", "Guardar PDF / Imprimir").onclick =
-    () => window.print();
-  add(actions, "button", "Jugar otra vez").onclick = () => {
+
+  const printButton = add(actions, "button", "Guardar PDF / Imprimir");
+  printButton.type = "button";
+  printButton.onclick = () => window.print();
+
+  const restartButton = add(actions, "button", "Jugar otra vez");
+  restartButton.type = "button";
+  restartButton.onclick = () => {
     result.classList.add("hidden");
     $("start").classList.remove("hidden");
     $("error").textContent = "";
     window.scrollTo(0, 0);
+    $("name").focus();
   };
 
-  topics.forEach((topic, t) => {
+  add(result, "h2", "Resultados por tema");
+
+  topics.forEach((topic, topicIndex) => {
     const matching = questions
-      .map((x, i) => ({x, i}))
-      .filter(x => x.x.q[0] === t);
-    const correct = matching.filter(x => answers[x.i].correct).length;
-    add(result, "p", `${topic}: ${correct} / 5`);
+      .map((entry, answerIndex) => ({ entry, answerIndex }))
+      .filter(item => item.entry.question[0] === topicIndex);
+
+    const correct = matching.filter(
+      item => answers[item.answerIndex].correct
+    ).length;
+
+    add(result, "p", `${topic}: ${correct} / ${matching.length}`);
   });
 
   add(result, "h2", "Detalle y explicaciones");
-  questions.forEach(({q, id, options}, i) => {
+
+  questions.forEach(({ question, id, options }, questionIndex) => {
     const item = add(result, "div", "", "item");
-    add(item, "h3", `${i + 1}. ${q[1]}`);
-    add(item, "p", `${topics[q[0]]} ¬∑ Pregunta del banco #${id + 1}`);
-    if (q[2]) add(item, "pre", q[2]);
-    options.forEach((o, j) =>
-      add(item, "p", `${"ABCD"[j]}. ${o.text}`)
-    );
+
+    add(item, "h3", `${questionIndex + 1}. ${question[1]}`);
     add(item, "p",
-      `Tu respuesta: ${answers[i].text} ‚Äî ` +
-      (answers[i].correct ? "Correcta ‚úì" : "Incorrecta ‚úó"));
-    add(item, "p", `Respuesta correcta: ${q[3][0]}`);
-    add(item, "p", q[4]);
+      `${topics[question[0]]} ∑ Pregunta del banco #${id + 1}`);
+
+    if (question[2]) {
+      add(item, "pre", question[2]);
+    }
+
+    options.forEach((option, optionIndex) => {
+      add(item, "p", `${"ABCD"[optionIndex]}. ${option.text}`);
+    });
+
+    const answer = answers[questionIndex];
+
+    add(item, "p",
+      `Tu respuesta: ${answer.text} ó ` +
+      (answer.correct ? "Correcta ?" : "Incorrecta ?"));
+
+    add(item, "p", `Respuesta correcta: ${question[3][0]}`);
+    add(item, "p", question[4]);
   });
+
   window.scrollTo(0, 0);
+  title.focus();
 }
 </script>
 </body>
