@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Fiesta</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#21113f;color:white;font-family:system-ui,sans-serif}
+main{max-width:950px;margin:auto;padding:24px}
+h1{font-size:clamp(32px,6vw,52px);margin:15px 0}
+.card{background:#352257;padding:24px;border-radius:20px;margin:20px 0}
+label{display:block;margin:15px 0 6px}
+input{width:100%;font:inherit;padding:12px;border:0;border-radius:8px}
+button{font:inherit;font-weight:bold;padding:15px;border:0;border-radius:10px;
+cursor:pointer;background:#ffdb67;color:#21113f}
+button:disabled{opacity:.5;cursor:default}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.option{color:white;min-height:95px;text-align:left;white-space:pre-wrap}
+.option:nth-child(1){background:#b82643}
+.option:nth-child(2){background:#2357b5}
+.option:nth-child(3){background:#816000}
+.option:nth-child(4){background:#187446}
+.selected{outline:4px solid white;outline-offset:2px}
+pre{background:#170c2c;padding:18px;border-radius:10px;
+white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
+.muted{color:#ded2ee}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.hidden{display:none!important}
+.item{border-top:1px solid #8c78a7;padding:14px 0;break-inside:avoid}
+progress{width:100%;accent-color:#ffdb67}
+@media(max-width:600px){
+ main{padding:14px}.card{padding:17px}
+ .options{grid-template-columns:1fr}.option{min-height:65px}
+}
+@media print{
+ body{background:white;color:black}
+ main{max-width:none;padding:0}
+ .card{background:white;padding:0}
+ .muted{color:#333}
+ .actions,header{display:none}
+ pre{background:#eee;color:black;font-size:12px}
+ .item{font-size:12px}
+ h1{font-size:26px}
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+<p>🐍 Guía 1 · Ejercicios 1 al 40</p>
+<h1>Python Fiesta</h1>
+<p class="muted">Pensá, elegí y que el código te acompañe.</p>
+</header>
+
+<section id="start" class="card">
+<h2>20 preguntas, sin apuro</h2>
+<p>Cada partida sortea cinco preguntas de cada tema y mezcla las opciones.
+Cada acierto vale un punto. La velocidad no suma.</p>
+<p>Usamos Python 3. Intentá resolver mentalmente los fragmentos,
+sin ejecutarlos. Las soluciones aparecen al terminar.</p>
+<label for="name">Nombre y apellido</label>
+<input id="name" maxlength="100" autocomplete="name">
+<label for="course">Curso / división</label>
+<input id="course" maxlength="80">
+<p class="muted">No cierres ni recargues la página: se pierde la partida.
+Al terminar, guardá el informe como PDF y entregalo en Classroom.</p>
+<button id="begin">¡A jugar!</button>
+<p id="error" role="alert"></p>
+</section>
+
+<section id="game" class="card hidden">
+<p id="position"></p>
+<progress id="progress" max="20" value="0"></progress>
+<h2 id="question"></h2>
+<pre id="code"></pre>
+<div id="options" class="options"></div>
+<p id="notice" aria-live="polite"></p>
+<button id="next" disabled>Confirmar y seguir →</button>
+</section>
+
+<section id="result" class="card hidden"></section>
+</main>
+
+<script>
+"use strict";
+
+// Cada pregunta contiene:
+// tema, enunciado, código, opciones, explicación.
+// La primera opción del banco es correcta; se mezcla al jugar.
+const bank = [
+[0,"¿Qué muestra este código?","print(5 * 3)",
+["15","53","5 * 3","Una serpiente haciendo abdominales"],
+"* multiplica los números."],
+
+[0,"¿Qué muestra este código?",'print("5 * 3 =15")',
+["5 * 3 =15","15","8","Error: las comillas tienen frío"],
+"Las comillas indican texto literal; no se calcula la expresión."],
+
+[0,"¿Cuántas líneas muestra?",
+'print("Estamos en otoño")\nprint("Hace frío")\nprint(2024)',
+["3","1","2","2024, una por cada año"],
+"Cada print termina con un salto de línea por defecto."],
+
+[0,"Si el usuario escribe Ana, ¿qué muestra el último print?",
+'nombre = input("Nombre: ")\nprint("Usted es", nombre)',
+["Usted es Ana","Usted es nombre","Ana Usted es","Usted es una tostadora"],
+"print muestra el texto y el valor de nombre separados por un espacio."],
+
+[0,"El usuario escribe 12. ¿Qué tipo de dato devuelve input?",
+'edad = input("Edad: ")',
+["Texto (str)","Entero (int)","Decimal (float)","Dato con crisis de identidad"],
+"input devuelve texto, aunque se escriban dígitos."],
+
+[0,"Se escribe 5 y luego 3. ¿Qué imprime?",
+'a = input("A: ")\nb = input("B: ")\nprint(a + b)',
+["53","8","15","Python pide vacaciones"],
+"+ concatena cuando ambos valores son textos."],
+
+[0,"¿Qué permite sumar dos números enteros ingresados con input?","",
+["Convertir ambos con int antes de sumarlos","Agregar más comillas",
+"Multiplicar los textos por cero","Pedirle por favor al teclado"],
+"int convierte un texto numérico válido en un entero."],
+
+[0,"¿Qué conversión permite ingresar 2.5 kg con punto decimal?",
+'kg = ___(input("Kg: "))',
+["float","int","print","banana"],
+"float convierte texto con punto decimal en un número decimal."],
+
+[1,"¿Cuál es el resultado?",
+"a = 6\nb = 8\nc = 10\nprint((a + b + c) / 3)",
+["8.0","24","14.0","Aprobado por simpatía"],
+"Se suma 24 y se divide por 3."],
+
+[1,"¿Qué ocurre si faltan los paréntesis al calcular este promedio?",
+"promedio = 6 + 8 + 10 / 3",
+["Se divide solo 10 entre 3 antes de sumar",
+"Se divide toda la suma entre 3","Da exactamente 8",
+"Python adivina lo que quisimos hacer"],
+"La división tiene prioridad sobre la suma."],
+
+[1,"¿Qué imprime Python 3?","print(7 / 2)",
+["3.5","3","14","Dos mitades de una serpiente"],
+"/ realiza división y devuelve un resultado decimal."],
+
+[1,"Con 1000 ARS = 1 USD, ¿cuántos USD son 5000 ARS?","",
+["5 USD","500 USD","5000000 USD","Un dólar con bufanda"],
+"Para pasar de ARS a USD se divide por 1000."],
+
+[1,"Con 1000 ARS = 1 USD, ¿cuántos ARS son 7 USD?","",
+["7000 ARS","0.007 ARS","1007 ARS","Siete pesos musculosos"],
+"Para pasar de USD a ARS se multiplica por 1000."],
+
+[1,"¿Cuánto cuestan 2.5 kg a $1000 por kg?","",
+["$2500","$400","$1002.5","Un aplauso y dos papas"],
+"Importe = cantidad por precio unitario."],
+
+[1,"En esta pregunta el IVA es del 21%. Para $1000 de base, ¿cuáles son IVA y total?","",
+["IVA $210; total $1210","IVA $21; total $1021",
+"IVA $1210; total $210","IVA: invasión de verduras"],
+"El impuesto es 1000 * 0.21 y se suma a la base."],
+
+[1,"¿Cuánto cuestan 1 kg de carne, 2 kg de papas y 1 kg de manzana?",
+"# Carne: $8000/kg\n# Papas: $1000/kg\n# Manzana: $3000/kg",
+["$13000","$12000","$11000","Depende del humor de la manzana"],
+"8000 + 2 * 1000 + 3000 = 13000."],
+
+[2,"¿Qué range recorre del 1 al 20 inclusive?",
+"for n in ___:\n    print(n)",
+["range(1, 21)","range(1, 20)","range(0, 20)",
+'range("hasta donde pinte")'],
+"El límite final de range no se incluye."],
+
+[2,"¿Qué secuencia muestra?",
+"for n in range(10, 0, -1):\n    print(n)",
+["10, 9, …, 1","10, 9, …, 0","0, 1, …, 10",
+"La cuenta atrás del microondas"],
+"El paso es -1 y el límite 0 está excluido."],
+
+[2,"¿Qué secuencia muestra?",
+"for n in range(5, 26, 3):\n    print(n)",
+["5, 8, 11, 14, 17, 20, 23",
+"5, 8, 11, 14, 17, 20, 23, 26",
+"5, 6, 7, …, 25","5, 25: tomó un atajo"],
+"Empieza en 5, avanza de a 3 y se detiene antes de 26."],
+
+[2,"¿Cuál es el último número mostrado?",
+"for n in range(0, 51, 4):\n    print(n)",
+["48","50","52","El 4 disfrazado de 50"],
+"48 es el último múltiplo de 4 menor que 51."],
+
+[2,"¿Qué imprime, en tres líneas?",
+"for n in range(1, 4):\n    print(5 * n)",
+["5, 10, 15","1, 2, 3","5, 5, 5","Cinco patos y un teclado"],
+"n toma los valores 1, 2 y 3."],
+
+[2,"¿Qué hace input en este programa?",
+'for n in range(1, 21):\n    print(n)\n    input("Enter para seguir")',
+["Espera una entrada en cada vuelta","Espera solo al principio",
+"Convierte n en texto","Le pide permiso al ratón"],
+"input está dentro del bucle y se ejecuta en cada iteración."],
+
+[2,"¿Qué range incluye la cuenta regresiva del 9 al 0?",
+"for n in ___:\n    print(n)",
+["range(9, -1, -1)","range(9, 0, -1)",
+"range(0, 9)","range(9, 0, 1)"],
+"Con paso -1, el límite debe estar por debajo de 0 para incluirlo."],
+
+[2,"¿Cómo incluir el número positivo elegido por el usuario?",
+'limite = int(input("Hasta qué número: "))',
+["range(1, limite + 1)","range(1, limite)","range(limite, 1)",
+'range(1, "por favor")'],
+"Como el límite final es exclusivo, se usa limite + 1."],
+
+[3,"¿Cuántos números se imprimen en total?",
+"for vuelta in range(3):\n    for n in range(1, 6):\n        print(n)",
+["15","8","5","3: los demás llegaron tarde"],
+"Son 3 vueltas externas con 5 impresiones cada una."],
+
+[3,"¿Cuántos mensajes OK aparecen?",
+'for piso in range(1, 3):\n    for depto in range(1, 5):\n        print(piso, depto, "OK")',
+["8","6","4","Uno por cada vecino chismoso"],
+"2 pisos por 4 departamentos da 8 combinaciones."],
+
+[3,"Hay 3 edificios, 2 pisos por edificio y 4 departamentos por piso. ¿Cuántos departamentos se recorren?","",
+["24","9","12","El ascensor se negó a contarlos"],
+"3 * 2 * 4 = 24."],
+
+[3,"¿Qué importe se muestra el día 5?",
+"for dia in range(1, 6):\n    print(dia, dia * 1000)",
+["5000","4000","6000","Mil abrazos contables"],
+"El importe es el número de día multiplicado por 1000."],
+
+[3,"Se ingresan 10, 20 y 30. ¿Cuál es el total final?",
+'total = 0\nfor n in range(3):\n    importe = float(input("Importe: "))\n    total = total + importe\nprint(total)',
+["60.0","30.0","0","102030: todos bien pegaditos"],
+"El acumulador conserva y suma los importes de cada vuelta."],
+
+[3,"Se ingresan 10, 20 y 30. ¿Qué problema tiene este código?",
+'for n in range(3):\n    total = 0\n    importe = float(input("Importe: "))\n    total = total + importe\nprint(total)',
+["Reinicia total cada vez y termina en 30.0",
+"Suma correctamente 60.0","Pide un solo importe",
+"La caja registradora tiene hipo"],
+"total debe inicializarse antes del bucle para conservar lo acumulado."],
+
+[3,"A 150 ollas por día, ¿cuál es la producción acumulada al día 5?","",
+["750","150","155","Una montaña de tapas sin olla"],
+"El acumulado es 150 * 5."],
+
+[3,"Durante 6 días se informa una vez por día cada una de 3 máquinas. ¿Cuántos registros se muestran?",
+'for dia in range(1, 7):\n    print("Sartenes", 200)\n    print("Coladores", 50)\n    print("Ollas", 120)',
+["18","6","3","370 máquinas en una conga"],
+"3 registros por día durante 6 días: 3 * 6 = 18."]
+];
+
+const topics = [
+"Entrada y salida",
+"Operaciones",
+"Bucles y range",
+"Acumuladores y anidación"
+];
+
+const $ = id => document.getElementById(id);
+let questions = [], answers = [], index = 0, selected = null;
+let student = "", course = "", started;
+
+function shuffle(items) {
+  const a = [...items];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function add(parent, tag, text, className = "") {
+  const el = document.createElement(tag);
+  el.textContent = text;
+  el.className = className;
+  parent.append(el);
+  return el;
+}
+
+$("begin").onclick = () => {
+  student = $("name").value.trim();
+  course = $("course").value.trim();
+  if (!student || !course) {
+    $("error").textContent = "Completá tu nombre y curso.";
+    return;
+  }
+  started = new Date();
+  questions = shuffle(topics.flatMap((_, topic) =>
+    shuffle(bank.map((q, id) => ({q, id}))
+      .filter(x => x.q[0] === topic)).slice(0, 5)
+  )).map(x => ({
+    ...x,
+    options: shuffle(x.q[3].map((text, i) => ({
+      text, correct: i === 0
+    })))
+  }));
+  answers = [];
+  index = 0;
+  $("start").classList.add("hidden");
+  $("game").classList.remove("hidden");
+  render();
+};
+
+function render() {
+  const {q, options} = questions[index];
+  selected = null;
+  $("position").textContent =
+    `Pregunta ${index + 1} de 20 · ${topics[q[0]]}`;
+  $("progress").value = index;
+  $("question").textContent = q[1];
+  $("code").textContent = q[2];
+  $("code").classList.toggle("hidden", !q[2]);
+  $("options").replaceChildren();
+  $("notice").textContent = "Elegí una opción y confirmá.";
+  $("next").disabled = true;
+  $("next").textContent =
+    index === 19 ? "Finalizar y ver informe" : "Confirmar y seguir →";
+
+  options.forEach((option, i) => {
+    const button = add(
+      $("options"), "button",
+      ["▲", "◆", "●", "■"][i] + " " + option.text, "option"
+    );
+    button.setAttribute("aria-pressed", "false");
+    button.onclick = () => {
+      selected = i;
+      [...$("options").children].forEach((b, j) => {
+        b.classList.toggle("selected", i === j);
+        b.setAttribute("aria-pressed", String(i === j));
+      });
+      $("next").disabled = false;
+      $("notice").textContent =
+        "Podés cambiar tu elección antes de confirmar.";
+    };
+  });
+}
+
+$("next").onclick = () => {
+  if (selected === null) return;
+  answers.push(questions[index].options[selected]);
+  index++;
+  if (index < 20) render();
+  else finish();
+};
+
+function finish() {
+  $("game").classList.add("hidden");
+  const result = $("result");
+  result.classList.remove("hidden");
+  result.replaceChildren();
+
+  const score = answers.filter(a => a.correct).length;
+  add(result, "h1", "Informe · Python Fiesta");
+  add(result, "h2", `${score} / 20 aciertos · ${score * 5}%`);
+  add(result, "p", `Estudiante: ${student} · Curso: ${course}`);
+  add(result, "p", `Inicio: ${started.toLocaleString("es-AR")}`);
+  add(result, "p",
+    `Finalización: ${new Date().toLocaleString("es-AR")}`);
+  add(result, "p",
+    "Un punto por respuesta correcta, sin premio por velocidad.");
+  add(result, "p",
+    "Guardá el informe completo como PDF desde el botón de impresión. " +
+    "Después adjuntalo manualmente en Classroom. También podés " +
+    "hacer una captura si tu docente la acepta.");
+  add(result, "p",
+    "El nombre y las fechas son datos del navegador. " +
+    "Este informe no certifica identidad ni impide modificaciones.",
+    "muted");
+
+  const actions = add(result, "div", "", "actions");
+  add(actions, "button", "Guardar PDF / Imprimir").onclick =
+    () => window.print();
+  add(actions, "button", "Jugar otra vez").onclick = () => {
+    result.classList.add("hidden");
+    $("start").classList.remove("hidden");
+    $("error").textContent = "";
+    window.scrollTo(0, 0);
+  };
+
+  topics.forEach((topic, t) => {
+    const matching = questions
+      .map((x, i) => ({x, i}))
+      .filter(x => x.x.q[0] === t);
+    const correct = matching.filter(x => answers[x.i].correct).length;
+    add(result, "p", `${topic}: ${correct} / 5`);
+  });
+
+  add(result, "h2", "Detalle y explicaciones");
+  questions.forEach(({q, id, options}, i) => {
+    const item = add(result, "div", "", "item");
+    add(item, "h3", `${i + 1}. ${q[1]}`);
+    add(item, "p", `${topics[q[0]]} · Pregunta del banco #${id + 1}`);
+    if (q[2]) add(item, "pre", q[2]);
+    options.forEach((o, j) =>
+      add(item, "p", `${"ABCD"[j]}. ${o.text}`)
+    );
+    add(item, "p",
+      `Tu respuesta: ${answers[i].text} — ` +
+      (answers[i].correct ? "Correcta ✓" : "Incorrecta ✗"));
+    add(item, "p", `Respuesta correcta: ${q[3][0]}`);
+    add(item, "p", q[4]);
+  });
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
