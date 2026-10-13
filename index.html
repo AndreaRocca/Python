@@ -112,9 +112,9 @@
 <body>
 <main>
   <header>
-    <p>?? Guía 1 · Ejercicios 1 al 40</p>
+    <p>ğŸ GuÃ­a 1 Â· Ejercicios 1 al 40</p>
     <h1>Python Fiesta</h1>
-    <p class="muted">Pensá, elegí y que el código te acompañe.</p>
+    <p class="muted">PensÃ¡, elegÃ­ y que el cÃ³digo te acompaÃ±e.</p>
   </header>
 
   <section id="start" class="card">
@@ -124,9 +124,9 @@
       Cada acierto vale un punto. La velocidad no suma.
     </p>
     <p>
-      Usamos Python 3. Intentá resolver mentalmente los fragmentos,
-      sin ejecutarlos. Prestá atención a los espacios al comienzo
-      de las líneas: la indentación forma parte del código.
+      Usamos Python 3. IntentÃ¡ resolver mentalmente los fragmentos,
+      sin ejecutarlos. PrestÃ¡ atenciÃ³n a los espacios al comienzo
+      de las lÃ­neas: la indentaciÃ³n forma parte del cÃ³digo.
     </p>
     <p>Las respuestas correctas y sus explicaciones aparecen al terminar.</p>
 
@@ -134,11 +134,11 @@
     <input id="name" maxlength="100" autocomplete="name">
 
     <p class="muted">
-      No cierres ni recargues la página: se pierde la partida.
-      Al finalizar, guardá el informe como PDF y entregalo en Classroom.
+      No cierres ni recargues la pÃ¡gina: se pierde la partida.
+      Al finalizar, guardÃ¡ el informe como PDF y entregalo en Classroom.
     </p>
 
-    <button id="begin" type="button">¡A jugar!</button>
+    <button id="begin" type="button">Â¡A jugar!</button>
     <p id="error" role="alert"></p>
   </section>
 
@@ -150,7 +150,7 @@
     <pre id="code"></pre>
     <div id="options" class="options"></div>
     <p id="notice" aria-live="polite"></p>
-    <button id="next" type="button" disabled>Confirmar y seguir ?</button>
+    <button id="next" type="button" disabled>Confirmar y seguir â†’</button>
   </section>
 
   <section id="result" class="card hidden"></section>
@@ -160,34 +160,34 @@
 "use strict";
 
 // Cada pregunta contiene:
-// tema, enunciado, código, opciones y explicación.
-// La primera opción del banco es correcta.
+// tema, enunciado, cÃ³digo, opciones y explicaciÃ³n.
+// La primera opciÃ³n del banco es correcta.
 // Las opciones se mezclan antes de mostrarse.
 const bank = [
   [
     0,
-    "¿Qué muestra este código?",
+    "Â¿QuÃ© muestra este cÃ³digo?",
     "print(5 * 3)",
     ["15", "53", "5 * 3", "Una serpiente haciendo abdominales"],
-    "* multiplica los números."
+    "* multiplica los nÃºmeros."
   ],
   [
     0,
-    "¿Qué muestra este código?",
+    "Â¿QuÃ© muestra este cÃ³digo?",
     'print("5 * 3 =15")',
-    ["5 * 3 =15", "15", "8", "Error: las comillas tienen frío"],
-    "Las comillas indican texto literal; no se calcula la expresión."
+    ["5 * 3 =15", "15", "8", "Error: las comillas tienen frÃ­o"],
+    "Las comillas indican texto literal; no se calcula la expresiÃ³n."
   ],
   [
     0,
-    "¿Cuántas líneas muestra?",
-    'print("Estamos en otoño")\nprint("Hace frío")\nprint(2024)',
-    ["3", "1", "2", "2024, una por cada año"],
-    "Cada print termina con un salto de línea por defecto."
+    "Â¿CuÃ¡ntas lÃ­neas muestra?",
+    'print("Estamos en otoÃ±o")\nprint("Hace frÃ­o")\nprint(2024)',
+    ["3", "1", "2", "2024, una por cada aÃ±o"],
+    "Cada print termina con un salto de lÃ­nea por defecto."
   ],
   [
     0,
-    "Si el usuario escribe Ana, ¿qué muestra el último print?",
+    "Si el usuario escribe Ana, Â¿quÃ© muestra el Ãºltimo print?",
     'nombre = input("Nombre: ")\nprint("Usted es", nombre)',
     [
       "Usted es Ana",
@@ -199,7 +199,7 @@ const bank = [
   ],
   [
     0,
-    "El usuario escribe 12. ¿Qué tipo de dato devuelve input?",
+    "El usuario escribe 12. Â¿QuÃ© tipo de dato devuelve input?",
     'edad = input("Edad: ")',
     [
       "Texto (str)",
@@ -207,45 +207,45 @@ const bank = [
       "Decimal (float)",
       "Dato con crisis de identidad"
     ],
-    "input devuelve texto, aunque se escriban dígitos."
+    "input devuelve texto, aunque se escriban dÃ­gitos."
   ],
   [
     0,
-    "Se escribe 5 y luego 3. ¿Qué imprime?",
+    "Se escribe 5 y luego 3. Â¿QuÃ© imprime?",
     'a = input("A: ")\nb = input("B: ")\nprint(a + b)',
     ["53", "8", "15", "Python pide vacaciones"],
     "+ concatena cuando ambos valores son textos."
   ],
   [
     0,
-    "¿Qué debe cambiar para sumar dos enteros en lugar de unir los textos?",
+    "Â¿QuÃ© debe cambiar para sumar dos enteros en lugar de unir los textos?",
     'a = input("A: ")\nb = input("B: ")\nprint(a + b)',
     [
       "Convertir ambos valores con int antes de sumarlos",
-      "Agregar más comillas",
+      "Agregar mÃ¡s comillas",
       "Multiplicar los textos por cero",
       "Pedirle por favor al teclado"
     ],
-    "int convierte un texto numérico válido en un entero."
+    "int convierte un texto numÃ©rico vÃ¡lido en un entero."
   ],
   [
     0,
-    "¿Qué conversión permite ingresar 2.5 kg con punto decimal?",
+    "Â¿QuÃ© conversiÃ³n permite ingresar 2.5 kg con punto decimal?",
     'kg = ___(input("Kg: "))',
     ["float", "int", "print", "banana"],
-    "float convierte texto con punto decimal en un número decimal."
+    "float convierte texto con punto decimal en un nÃºmero decimal."
   ],
 
   [
     1,
-    "¿Cuál es el resultado?",
+    "Â¿CuÃ¡l es el resultado?",
     "a = 6\nb = 8\nc = 10\nprint((a + b + c) / 3)",
-    ["8.0", "24", "14.0", "Aprobado por simpatía"],
+    ["8.0", "24", "14.0", "Aprobado por simpatÃ­a"],
     "Se suma 24 y se divide por 3."
   ],
   [
     1,
-    "¿Qué ocurre si faltan los paréntesis al calcular este promedio?",
+    "Â¿QuÃ© ocurre si faltan los parÃ©ntesis al calcular este promedio?",
     "promedio = 6 + 8 + 10 / 3",
     [
       "Se divide solo 10 entre 3 antes de sumar",
@@ -253,30 +253,30 @@ const bank = [
       "Da exactamente 8",
       "Python adivina lo que quisimos hacer"
     ],
-    "La división tiene prioridad sobre la suma."
+    "La divisiÃ³n tiene prioridad sobre la suma."
   ],
   [
     1,
-    "¿Qué imprime Python 3?",
+    "Â¿QuÃ© imprime Python 3?",
     "print(7 / 2)",
     ["3.5", "3", "14", "Dos mitades de una serpiente"],
-    "/ realiza división y devuelve un resultado decimal."
+    "/ realiza divisiÃ³n y devuelve un resultado decimal."
   ],
   [
     1,
-    "¿Qué ocurre al ejecutar este código?",
+    "Â¿QuÃ© ocurre al ejecutar este cÃ³digo?",
     "for n in range(1, 4):\nprint(n)",
     [
-      "Se produce un error de indentación",
+      "Se produce un error de indentaciÃ³n",
       "Imprime 1, 2 y 3",
       "Imprime solo 3",
       "Python acomoda los espacios con una escoba"
     ],
-    "Después de for debe haber un bloque indentado. print(n) debe estar desplazado hacia la derecha."
+    "DespuÃ©s de for debe haber un bloque indentado. print(n) debe estar desplazado hacia la derecha."
   ],
   [
     1,
-    "¿Qué muestra este programa, en orden?",
+    "Â¿QuÃ© muestra este programa, en orden?",
     'for n in range(1, 4):\n    print(n)\nprint("Fin")',
     [
       "1, 2, 3 y luego Fin una sola vez",
@@ -284,23 +284,23 @@ const bank = [
       "Solo Fin",
       "Fin aparece cuando se cansa"
     ],
-    "El último print está fuera del bucle porque vuelve al margen izquierdo."
+    "El Ãºltimo print estÃ¡ fuera del bucle porque vuelve al margen izquierdo."
   ],
   [
     1,
-    "¿Qué muestra este programa, en orden?",
+    "Â¿QuÃ© muestra este programa, en orden?",
     'for n in range(1, 4):\n    print(n)\n    print("Fin")',
     [
       "1, Fin, 2, Fin, 3, Fin",
       "1, 2, 3 y luego Fin una sola vez",
       "Solo 1 y Fin",
-      "Tres finales y ningún comienzo"
+      "Tres finales y ningÃºn comienzo"
     ],
-    "Ambos print están indentados dentro del bucle y se ejecutan en cada vuelta."
+    "Ambos print estÃ¡n indentados dentro del bucle y se ejecutan en cada vuelta."
   ],
   [
     1,
-    "¿Qué líneas pertenecen al cuerpo del bucle?",
+    "Â¿QuÃ© lÃ­neas pertenecen al cuerpo del bucle?",
     'print("Listo")\nfor n in range(3):\n    print(n)\n    print("Seguimos")\nprint("Terminado")',
     [
       'print(n) y print("Seguimos")',
@@ -308,24 +308,24 @@ const bank = [
       'Solo print("Terminado")',
       "Las que tengan ganas de trabajar"
     ],
-    "Las dos líneas indentadas debajo de for forman el cuerpo del bucle."
+    "Las dos lÃ­neas indentadas debajo de for forman el cuerpo del bucle."
   ],
   [
     1,
-    "Queremos pedir tres importes y mostrar el total una sola vez. ¿Qué línea debe salir del bucle?",
+    "Queremos pedir tres importes y mostrar el total una sola vez. Â¿QuÃ© lÃ­nea debe salir del bucle?",
     'total = 0\nfor n in range(3):\n    importe = float(input("Importe: "))\n    total = total + importe\n    print(total)',
     [
-      "print(total), llevándolo al margen izquierdo",
-      "La línea que pide el importe",
+      "print(total), llevÃ¡ndolo al margen izquierdo",
+      "La lÃ­nea que pide el importe",
       "total = total + importe",
       "Todas: el bucle necesita espacio personal"
     ],
-    "El print debe ejecutarse después de terminar las tres vueltas. Dentro del bucle muestra los totales parciales."
+    "El print debe ejecutarse despuÃ©s de terminar las tres vueltas. Dentro del bucle muestra los totales parciales."
   ],
 
   [
     2,
-    "¿Qué range recorre del 1 al 20 inclusive?",
+    "Â¿QuÃ© range recorre del 1 al 20 inclusive?",
     "for n in ___:\n    print(n)",
     [
       "range(1, 21)",
@@ -333,42 +333,42 @@ const bank = [
       "range(0, 20)",
       'range("hasta donde pinte")'
     ],
-    "El límite final de range no se incluye."
+    "El lÃ­mite final de range no se incluye."
   ],
   [
     2,
-    "¿Qué secuencia muestra?",
+    "Â¿QuÃ© secuencia muestra?",
     "for n in range(10, 0, -1):\n    print(n)",
     [
-      "10, 9, …, 1",
-      "10, 9, …, 0",
-      "0, 1, …, 10",
-      "La cuenta atrás del microondas"
+      "10, 9, â€¦, 1",
+      "10, 9, â€¦, 0",
+      "0, 1, â€¦, 10",
+      "La cuenta atrÃ¡s del microondas"
     ],
-    "El paso es -1 y el límite 0 está excluido."
+    "El paso es -1 y el lÃ­mite 0 estÃ¡ excluido."
   ],
   [
     2,
-    "¿Qué secuencia muestra?",
+    "Â¿QuÃ© secuencia muestra?",
     "for n in range(5, 26, 3):\n    print(n)",
     [
       "5, 8, 11, 14, 17, 20, 23",
       "5, 8, 11, 14, 17, 20, 23, 26",
-      "5, 6, 7, …, 25",
-      "5, 25: tomó un atajo"
+      "5, 6, 7, â€¦, 25",
+      "5, 25: tomÃ³ un atajo"
     ],
     "Empieza en 5, avanza de a 3 y se detiene antes de 26."
   ],
   [
     2,
-    "¿Cuál es el último número mostrado?",
+    "Â¿CuÃ¡l es el Ãºltimo nÃºmero mostrado?",
     "for n in range(0, 51, 4):\n    print(n)",
     ["48", "50", "52", "El 4 disfrazado de 50"],
-    "48 es el último múltiplo de 4 menor que 51."
+    "48 es el Ãºltimo mÃºltiplo de 4 menor que 51."
   ],
   [
     2,
-    "¿Qué imprime, en tres líneas?",
+    "Â¿QuÃ© imprime, en tres lÃ­neas?",
     "for n in range(1, 4):\n    print(5 * n)",
     [
       "5, 10, 15",
@@ -380,19 +380,19 @@ const bank = [
   ],
   [
     2,
-    "¿Qué hace input en este programa?",
+    "Â¿QuÃ© hace input en este programa?",
     'for n in range(1, 21):\n    print(n)\n    input("Enter para seguir")',
     [
       "Espera una entrada en cada vuelta",
       "Espera solo al principio",
       "Convierte n en texto",
-      "Le pide permiso al ratón"
+      "Le pide permiso al ratÃ³n"
     ],
-    "input está dentro del bucle y se ejecuta en cada iteración."
+    "input estÃ¡ dentro del bucle y se ejecuta en cada iteraciÃ³n."
   ],
   [
     2,
-    "¿Qué range incluye la cuenta regresiva del 9 al 0?",
+    "Â¿QuÃ© range incluye la cuenta regresiva del 9 al 0?",
     "for n in ___:\n    print(n)",
     [
       "range(9, -1, -1)",
@@ -400,38 +400,38 @@ const bank = [
       "range(0, 9)",
       "range(9, 0, 1)"
     ],
-    "Con paso -1, el límite debe estar por debajo de 0 para incluirlo."
+    "Con paso -1, el lÃ­mite debe estar por debajo de 0 para incluirlo."
   ],
   [
     2,
-    "¿Qué expresión recorre desde 1 hasta el número positivo ingresado, incluyéndolo?",
-    'limite = int(input("Hasta qué número: "))\nfor n in ___:\n    print(n)',
+    "Â¿QuÃ© expresiÃ³n recorre desde 1 hasta el nÃºmero positivo ingresado, incluyÃ©ndolo?",
+    'limite = int(input("Hasta quÃ© nÃºmero: "))\nfor n in ___:\n    print(n)',
     [
       "range(1, limite + 1)",
       "range(1, limite)",
       "range(limite, 1)",
       'range(1, "por favor")'
     ],
-    "Como el límite final es exclusivo, se usa limite + 1."
+    "Como el lÃ­mite final es exclusivo, se usa limite + 1."
   ],
 
   [
     3,
-    "¿Cuántos números se imprimen en total?",
+    "Â¿CuÃ¡ntos nÃºmeros se imprimen en total?",
     "for vuelta in range(3):\n    for n in range(1, 6):\n        print(n)",
-    ["15", "8", "5", "3: los demás llegaron tarde"],
+    ["15", "8", "5", "3: los demÃ¡s llegaron tarde"],
     "Son 3 vueltas externas con 5 impresiones cada una."
   ],
   [
     3,
-    "¿Cuántos mensajes OK aparecen?",
+    "Â¿CuÃ¡ntos mensajes OK aparecen?",
     'for piso in range(1, 3):\n    for depto in range(1, 5):\n        print(piso, depto, "OK")',
     ["8", "6", "4", "Uno por cada vecino chismoso"],
-    "El print está dentro de ambos bucles: se ejecuta para cada una de las 8 combinaciones."
+    "El print estÃ¡ dentro de ambos bucles: se ejecuta para cada una de las 8 combinaciones."
   ],
   [
     3,
-    "¿Cuántas veces aparece OK?",
+    "Â¿CuÃ¡ntas veces aparece OK?",
     'for piso in range(1, 3):\n    for depto in range(1, 5):\n        print(piso, depto)\n    print("OK")',
     [
       "2",
@@ -439,25 +439,25 @@ const bank = [
       "1",
       "Una por cada vecino que paga las expensas"
     ],
-    'print("OK") está dentro del bucle de pisos, pero fuera del de departamentos. Se ejecuta una vez por piso.'
+    'print("OK") estÃ¡ dentro del bucle de pisos, pero fuera del de departamentos. Se ejecuta una vez por piso.'
   ],
   [
     3,
-    "¿Qué importe muestra el código junto al día 5?",
+    "Â¿QuÃ© importe muestra el cÃ³digo junto al dÃ­a 5?",
     "for dia in range(1, 6):\n    print(dia, dia * 1000)",
     ["5000", "4000", "6000", "Mil abrazos contables"],
-    "En esa vuelta dia vale 5 y el código calcula 5 * 1000."
+    "En esa vuelta dia vale 5 y el cÃ³digo calcula 5 * 1000."
   ],
   [
     3,
-    "Se ingresan 10, 20 y 30. ¿Cuál es el total final?",
+    "Se ingresan 10, 20 y 30. Â¿CuÃ¡l es el total final?",
     'total = 0\nfor n in range(3):\n    importe = float(input("Importe: "))\n    total = total + importe\nprint(total)',
     ["60.0", "30.0", "0", "102030: todos bien pegaditos"],
     "El acumulador conserva y suma los importes de cada vuelta."
   ],
   [
     3,
-    "Se ingresan 10, 20 y 30. ¿Qué problema tiene este código?",
+    "Se ingresan 10, 20 y 30. Â¿QuÃ© problema tiene este cÃ³digo?",
     'for n in range(3):\n    total = 0\n    importe = float(input("Importe: "))\n    total = total + importe\nprint(total)',
     [
       "Reinicia total cada vez y termina en 30.0",
@@ -469,30 +469,30 @@ const bank = [
   ],
   [
     3,
-    "Queremos acumular la producción de cinco días. ¿Qué línea está ubicada en el bloque equivocado?",
+    "Queremos acumular la producciÃ³n de cinco dÃ­as. Â¿QuÃ© lÃ­nea estÃ¡ ubicada en el bloque equivocado?",
     "for dia in range(1, 6):\n    total = 0\n    total = total + 150\nprint(total)",
     [
-      "total = 0: debe estar antes del for, sin indentación",
+      "total = 0: debe estar antes del for, sin indentaciÃ³n",
       "total = total + 150: debe salir del bucle",
       "print(total): debe entrar al bucle",
-      "El for: está ocupando mucho lugar"
+      "El for: estÃ¡ ocupando mucho lugar"
     ],
     "Reiniciar total dentro del bucle borra lo acumulado. Inicializarlo antes permite obtener 750 al finalizar."
   ],
   [
     3,
-    "¿Cuántas llamadas a print ejecuta este programa?",
+    "Â¿CuÃ¡ntas llamadas a print ejecuta este programa?",
     'for dia in range(1, 7):\n    print("Sartenes", 200)\n    print("Coladores", 50)\n    print("Ollas", 120)',
-    ["18", "6", "3", "370 máquinas en una conga"],
-    "Los tres print están dentro del bucle: se ejecutan 3 veces por vuelta, durante 6 vueltas."
+    ["18", "6", "3", "370 mÃ¡quinas en una conga"],
+    "Los tres print estÃ¡n dentro del bucle: se ejecutan 3 veces por vuelta, durante 6 vueltas."
   ]
 ];
 
 const topics = [
   "Entrada y salida",
-  "Operaciones e indentación",
+  "Operaciones e indentaciÃ³n",
   "Bucles y range",
-  "Acumuladores y anidación"
+  "Acumuladores y anidaciÃ³n"
 ];
 
 const $ = id => document.getElementById(id);
@@ -525,7 +525,7 @@ $("begin").onclick = () => {
   student = $("name").value.trim();
 
   if (!student) {
-    $("error").textContent = "Completá tu nombre para comenzar.";
+    $("error").textContent = "CompletÃ¡ tu nombre para comenzar.";
     $("name").focus();
     return;
   }
@@ -563,7 +563,7 @@ function render() {
   selected = null;
 
   $("position").textContent =
-    `Pregunta ${index + 1} de 20 · ${topics[question[0]]}`;
+    `Pregunta ${index + 1} de 20 Â· ${topics[question[0]]}`;
 
   $("progress").value = index;
   $("question").textContent = question[1];
@@ -571,17 +571,17 @@ function render() {
   $("code").classList.toggle("hidden", !question[2]);
   $("options").replaceChildren();
 
-  $("notice").textContent = "Elegí una opción y confirmá.";
+  $("notice").textContent = "ElegÃ­ una opciÃ³n y confirmÃ¡.";
   $("next").disabled = true;
   $("next").textContent = index === 19
     ? "Finalizar y ver informe"
-    : "Confirmar y seguir ?";
+    : "Confirmar y seguir â†’";
 
   options.forEach((option, optionIndex) => {
     const button = add(
       $("options"),
       "button",
-      `${["?", "?", "?", "¦"][optionIndex]} ${option.text}`,
+      `${["â–²", "â—†", "â—", "â– "][optionIndex]} ${option.text}`,
       "option"
     );
 
@@ -599,7 +599,7 @@ function render() {
 
       $("next").disabled = false;
       $("notice").textContent =
-        "Podés cambiar tu elección antes de confirmar.";
+        "PodÃ©s cambiar tu elecciÃ³n antes de confirmar.";
     };
   });
 
@@ -629,20 +629,20 @@ function finish() {
   const score = answers.filter(answer => answer.correct).length;
   const completed = new Date();
 
-  const title = add(result, "h1", "Informe · Python Fiesta");
+  const title = add(result, "h1", "Informe Â· Python Fiesta");
   title.tabIndex = -1;
 
-  add(result, "h2", `${score} / 20 aciertos · ${score * 5}%`);
+  add(result, "h2", `${score} / 20 aciertos Â· ${score * 5}%`);
   add(result, "p", `Estudiante: ${student}`);
   add(result, "p", `Inicio: ${started.toLocaleString("es-AR")}`);
-  add(result, "p", `Finalización: ${completed.toLocaleString("es-AR")}`);
+  add(result, "p", `FinalizaciÃ³n: ${completed.toLocaleString("es-AR")}`);
   add(result, "p",
     "Un punto por respuesta correcta, sin premio por velocidad.");
 
   add(result, "p",
-    "Seleccioná «Guardar PDF / Imprimir» y elegí «Guardar como PDF» " +
-    "en el diálogo de impresión. Revisá que se incluya todo el informe " +
-    "y adjuntalo manualmente en Classroom. También podés hacer una " +
+    "SeleccionÃ¡ Â«Guardar PDF / ImprimirÂ» y elegÃ­ Â«Guardar como PDFÂ» " +
+    "en el diÃ¡logo de impresiÃ³n. RevisÃ¡ que se incluya todo el informe " +
+    "y adjuntalo manualmente en Classroom. TambiÃ©n podÃ©s hacer una " +
     "captura si tu docente la acepta.");
 
   add(result, "p",
@@ -687,7 +687,7 @@ function finish() {
 
     add(item, "h3", `${questionIndex + 1}. ${question[1]}`);
     add(item, "p",
-      `${topics[question[0]]} · Pregunta del banco #${id + 1}`);
+      `${topics[question[0]]} Â· Pregunta del banco #${id + 1}`);
 
     if (question[2]) {
       add(item, "pre", question[2]);
@@ -700,8 +700,8 @@ function finish() {
     const answer = answers[questionIndex];
 
     add(item, "p",
-      `Tu respuesta: ${answer.text} — ` +
-      (answer.correct ? "Correcta ?" : "Incorrecta ?"));
+      `Tu respuesta: ${answer.text} â€” ` +
+      (answer.correct ? "Correcta âœ“" : "Incorrecta âœ—"));
 
     add(item, "p", `Respuesta correcta: ${question[3][0]}`);
     add(item, "p", question[4]);
